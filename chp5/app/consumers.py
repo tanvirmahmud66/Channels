@@ -2,6 +2,7 @@ from channels.consumer import SyncConsumer, AsyncConsumer
 from channels.exceptions import StopConsumer
 from time import sleep
 import asyncio
+import json
 
 class MySyncConsumer(SyncConsumer):
     def websocket_connect(self, event):
@@ -15,7 +16,7 @@ class MySyncConsumer(SyncConsumer):
         for i in range(20):
             self.send({
                 'type':'websocket.send',
-                'text':str(i+1)
+                'text': json.dumps({'count':i+1})
             })
             sleep(1)
     
@@ -36,7 +37,7 @@ class MyAsyncConsumer(AsyncConsumer):
         for i in range(20):
             await self.send({
                 'type':'websocket.send',
-                'text':str(i+1)
+                'text':json.dumps({'count':i+1})
             })
             await asyncio.sleep(1)
     

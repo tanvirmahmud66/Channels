@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Django Channels</h1>
-    
+    <p id="ct"></p>
     
     <script>
 
@@ -20,6 +20,8 @@
 
         ws.onmessage = function(event){
             console.log("message received", event)
+            var data = JSON.parse(event.data)
+            document.getElementById('ct').innerHTML = data.count
         }
 
         ws.onerror = function(event){
